@@ -4,6 +4,8 @@
  *
  * Copyright 2011 Evan Wallace
  * Released under the MIT license
+
+ Copyright 2026 D-L-L GmbH
  */
 
 function text2html(text) {
@@ -44,9 +46,28 @@ window.onload = function() {
   var ratio = window.devicePixelRatio || 1;
   var help = document.getElementById('help');
 
+  function isMobileLayout() {
+    return window.matchMedia('(max-width: 600px)').matches;
+  }
+
   function onresize() {
-    var width = innerWidth - help.clientWidth - 20;
-    var height = innerHeight;
+    var width, height;
+    if (typeof help.getBoundingClientRect === 'function') {
+      var rect = help.getBoundingClientRect();
+      if (isMobileLayout()) {
+        // #help is the bottom half: canvas fills the top half
+        width = innerWidth;
+        height = Math.round(rect.top) || Math.round(innerHeight / 2);
+      } else {
+        // #help is the right half: canvas fills the left half
+        width = Math.round(rect.left) || Math.round(innerWidth / 2);
+        height = innerHeight;
+      }
+    } else {
+      // Fallback for very old browsers: split the screen in half
+      width = isMobileLayout() ? innerWidth : Math.round(innerWidth / 2);
+      height = isMobileLayout() ? Math.round(innerHeight / 2) : innerHeight;
+    }
     gl.canvas.width = width * ratio;
     gl.canvas.height = height * ratio;
     gl.canvas.style.width = width + 'px';
