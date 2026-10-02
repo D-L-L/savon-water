@@ -28,11 +28,13 @@ Copyright 2026 D-L-L GmbH
     h2 { font: bold italic 17px/17px Georgia; padding-top: 10px; }
     small { display: block; font-size: 11px; line-height: 15px; }
     canvas { position: absolute; top: 0; left: 0; }
-    #help { position: absolute; top: 0; right: 0; bottom: 0; width: 280px; padding-right: 20px; overflow: auto; }
-    #loading { position: absolute; left: 0; top: 50%; right: 300px; text-align: center; margin-top: -8px; }
+    #help { position: absolute; top: 0; right: 0; bottom: 0; width: 50%; box-sizing: border-box; padding: 0 24px; overflow: auto; display: flex; flex-direction: column; }
+    .help-inner { margin: auto 0; }
+    #loading { position: absolute; left: 0; top: 50%; right: 50%; text-align: center; margin-top: -8px; }
     @media (max-width: 600px) {
       small { font-size: 8px; line-height: 10px; }
-      #help { width: 100px; font-size: 10px; line-height: 12px; }
+      #help { top: 50%; left: 0; right: 0; width: auto; padding: 8px 16px; font-size: 10px; line-height: 12px; }
+      #loading { right: 0; top: 25%; }
     }
   </style>
 
@@ -40,6 +42,7 @@ Copyright 2026 D-L-L GmbH
   
   <div id="loading">Loading...</div>
   <div id="help">
+    <div class="help-inner">
     
     <h1>Garden</h1>
     
@@ -70,6 +73,7 @@ Copyright 2026 D-L-L GmbH
       </small>
     
     </p> 
+    </div>
   
   </div>
   <img id="tiles" src="tiles.jpg">
